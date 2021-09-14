@@ -1,4 +1,4 @@
-#include "scanner.h"    
+#include "scanner.h"   
 
 Token** table;
 
@@ -6,9 +6,9 @@ void initTable()
 {
     table = new Token*[3];
 
-    table[0] = new Token(IF, "if");
-    table[1] = new Token(ELSE, "else");
-    table[2] = new Token(THEN, "then");
+    table[0] = new Token(ID, "if");
+    table[1] = new Token(ID, "else");
+    table[2] = new Token(ID, "then");
 }
 
 void freeTable()
@@ -59,16 +59,18 @@ Scanner::nextToken()
     }
 
     //Consome espaços em branco
-    while (isspace(input[pos]))
+    while (isspace(input[pos])) {
         pos++;
+    }
 
     //Operadores relacionais
 		if (input[pos] == '&')
-    {
+        {
+            pos++;
 			if(input[pos] == '&'){
-				pos++
+                pos++;
 				tok = new Token(OP, AND);
-				retun tok;
+				return tok;
 			}
       lexicalError();
 
@@ -113,11 +115,10 @@ Scanner::nextToken()
     {   
         pos++;
 				if(input[pos] == '='){
-					pos++
+                    pos++;
 					tok = new Token(OP, EQUAL);
-					retun tok;
+					return tok;
 				} else {
-					pos--;
         	tok = new Token(OP, ATTRIBUITION);
         	return tok;
 				}
@@ -133,7 +134,6 @@ Scanner::nextToken()
         }   
         else
         {
-					pos--;
 					tok = new Token(OP, NOT);
 					return tok;
         }
@@ -153,9 +153,7 @@ Scanner::nextToken()
 
         //Busco na tabela para ver se é palavra reservada
         // tok = searchTable(lexeme);
-        if (!tok)
-            tok = new Token(ID);
-    
+        tok = new Token(ID, lexeme);
         return tok;
     }
 
@@ -167,7 +165,7 @@ Scanner::nextToken()
 			while (isdigit(input[pos]))
 					pos++;
 
-      tok = new Token(NUMBER, INTEGER_LITERAL); 
+      tok = new Token(INTEGER_LITERAL, 69); 
       return tok;
     }
 
@@ -179,7 +177,7 @@ Scanner::nextToken()
 					pos++;
 
 				pos++;
-				tok = new Toke(SINGLE_LINE_COMMENT);
+				tok = new Token(SINGLE_LINE_COMMENT);
 				return tok;
 				
 			}
@@ -188,7 +186,7 @@ Scanner::nextToken()
 					pos++;
 
 				pos++;
-				tok = new Toke(MULTI_LINE_COMMENT);
+				tok = new Token(MULTI_LINE_COMMENT);
 				return tok;
 			}
 		}
