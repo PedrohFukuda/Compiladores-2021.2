@@ -43,29 +43,29 @@ enum Names
 	END_OF_FILE//33
 };
 
-class Token 
+class Token
 {
-    public: 
-        int name;
-        int attribute;
-        string lexeme;
-    
-        Token(int name, string lexeme)
-        {
-            this->name = name;
-            this->lexeme = lexeme;
-            attribute = UNDEF;
-        }
+public:
+	int name;
+	int attribute;
+	string lexeme;
 
-        Token(int name)
-        {
-            this->name = name;
-            attribute = UNDEF;
-        }
-        
-        Token(int name, int attr)
-        {
-            this->name = name;
-            attribute = attr;
-        }
+	Token(int name, string lexeme)
+	{
+		this->name = name;
+		this->lexeme = lexeme;
+		attribute = UNDEF;
+	}
+
+	Token(int name)
+	{
+		this->name = name;
+		attribute = UNDEF;
+	}
+
+	Token(int name, int attr)
+	{
+		this->name = name;
+		attribute = attr;
+	}
 };
