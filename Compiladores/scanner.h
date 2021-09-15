@@ -1,4 +1,5 @@
 #include "token.h"
+#include <fstream>
 
 class Scanner 
 {
